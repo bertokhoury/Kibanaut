@@ -1,0 +1,6 @@
+// Error volume per service and status, slowest first.
+FROM logs-*
+  | WHERE http.response.status_code >= 500
+  | STATS requests = COUNT(*), p50_ms = MEDIAN(event.duration) / 1000000 BY service.name, http.response.status_code
+  | SORT requests DESC
+  | LIMIT 20

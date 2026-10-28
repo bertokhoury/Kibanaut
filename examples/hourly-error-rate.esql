@@ -1,0 +1,6 @@
+// Error rate per hour; BUCKET keeps the time axis regular.
+FROM logs-*
+  | EVAL is_error = CASE(http.response.status_code >= 500, 1, 0)
+  | STATS error_rate = AVG(is_error), requests = COUNT(*) BY hour = BUCKET(@timestamp, 1 hour)
+  | SORT hour
+  | LIMIT 168

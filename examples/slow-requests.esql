@@ -1,0 +1,7 @@
+// The slowest requests in the last window, with the duration in milliseconds.
+FROM logs-*
+  | WHERE event.duration > 1000000000
+  | EVAL duration_ms = event.duration / 1000000
+  | KEEP @timestamp, host.name, url.path, duration_ms, http.response.status_code
+  | SORT duration_ms DESC
+  | LIMIT 50

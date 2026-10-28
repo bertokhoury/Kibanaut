@@ -1,0 +1,61 @@
+{
+  "name": "kibanaut",
+  "version": "0.1.0",
+  "description": "Pilot Kibana from a mission-control TUI: an ES|QL terminal with linting and completion built in.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "kibanaut": "./dist/cli.js",
+    "kq": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "sync-definitions": "node scripts/sync-definitions.mjs",
+    "start": "node dist/cli.js",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@elastic/esql": "^4.34.0",
+    "@elastic/esql-definitions": "^4.34.0",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "ink": "^6.0.1",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albertkhoury-elasticgov/Kibanaut.git"
+  },
+  "keywords": [
+    "elasticsearch",
+    "kibana",
+    "esql",
+    "tui",
+    "repl",
+    "lint",
+    "autocomplete"
+  ],
+  "homepage": "https://github.com/albertkhoury-elasticgov/Kibanaut#readme"
+}
